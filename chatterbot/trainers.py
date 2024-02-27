@@ -275,7 +275,7 @@ class UbuntuCorpusTrainer(Trainer):
 
         with open(file_path, 'wb') as open_file:
             print('Downloading %s' % url)
-            response = requests.get(url, stream=True)
+            response = requests.get(url, stream=True, timeout=60)
             total_length = response.headers.get('content-length')
 
             if total_length is None:
