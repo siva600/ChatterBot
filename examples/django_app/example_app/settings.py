@@ -104,3 +104,4 @@ STATICFILES_DIRS = (
         'static',
     ),
 )
+SESSION_COOKIE_SECURE = True
