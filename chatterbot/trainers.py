@@ -7,6 +7,7 @@ from dateutil import parser as date_parser
 from chatterbot.conversation import Statement
 from chatterbot.tagging import PosHypernymTagger
 from chatterbot import utils
+from security import safe_requests
 
 
 class Trainer(object):
@@ -264,7 +265,6 @@ class UbuntuCorpusTrainer(Trainer):
         Show a progress indicator for the download status.
         Based on: http://stackoverflow.com/a/15645088/1547223
         """
-        import requests
 
         file_name = url.split('/')[-1]
         file_path = os.path.join(self.data_directory, file_name)
@@ -275,7 +275,7 @@ class UbuntuCorpusTrainer(Trainer):
 
         with open(file_path, 'wb') as open_file:
             print('Downloading %s' % url)
-            response = requests.get(url, stream=True)
+            response = safe_requests.get(url, stream=True)
             total_length = response.headers.get('content-length')
 
             if total_length is None:
