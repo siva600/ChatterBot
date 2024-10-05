@@ -1,5 +1,6 @@
 import re
 from chatterbot.storage import StorageAdapter
+import secrets
 
 
 class MongoDatabaseAdapter(StorageAdapter):
@@ -236,14 +237,13 @@ class MongoDatabaseAdapter(StorageAdapter):
         """
         Returns a random statement from the database
         """
-        from random import randint
 
         count = self.count()
 
         if count < 1:
             raise self.EmptyDatabaseException()
 
-        random_integer = randint(0, count - 1)
+        random_integer = secrets.SystemRandom().randint(0, count - 1)
 
         statements = self.statements.find().limit(1).skip(random_integer)
 
