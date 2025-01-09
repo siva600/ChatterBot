@@ -1,4 +1,5 @@
 from chatterbot.storage import StorageAdapter
+import secrets
 
 
 class SQLStorageAdapter(StorageAdapter):
@@ -321,7 +322,6 @@ class SQLStorageAdapter(StorageAdapter):
         """
         Returns a random statement from the database.
         """
-        import random
 
         Statement = self.get_model('statement')
 
@@ -330,7 +330,7 @@ class SQLStorageAdapter(StorageAdapter):
         if count < 1:
             raise self.EmptyDatabaseException()
 
-        random_index = random.randrange(0, count)
+        random_index = secrets.SystemRandom().randrange(0, count)
         random_statement = session.query(Statement)[random_index]
 
         statement = self.model_to_object(random_statement)

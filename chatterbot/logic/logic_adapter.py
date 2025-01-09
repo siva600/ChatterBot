@@ -2,6 +2,7 @@ from chatterbot.adapters import Adapter
 from chatterbot.storage import StorageAdapter
 from chatterbot.search import IndexedTextSearch
 from chatterbot.conversation import Statement
+import secrets
 
 
 class LogicAdapter(Adapter):
@@ -105,10 +106,9 @@ class LogicAdapter(Adapter):
         This method is called when a logic adapter is unable to generate any
         other meaningful response.
         """
-        from random import choice
 
         if self.default_responses:
-            response = choice(self.default_responses)
+            response = secrets.choice(self.default_responses)
         else:
             try:
                 response = self.chatbot.storage.get_random()
